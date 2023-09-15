@@ -1,0 +1,15 @@
+- name: play_1
+  gather_facts: false
+  hosts: all
+  tasks:
+    - name: task_1
+      ping:
+
+- name: play_2
+  gather_facts: false
+  hosts: all
+  become: true
+  tasks:        
+    - name: update the cache
+      apt:
+        update_cache: true

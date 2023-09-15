@@ -1,0 +1,21 @@
+- name: play_1
+  hosts: all
+  gather_facts: false
+  tasks:
+  - name: checking connection
+    ping:
+    tags:
+      - always
+
+  - name: update the cache
+    apt:
+      update_cache: true 
+    tags:
+      - apt-update
+
+  - name: install nginx
+    apt:
+      name: nginx
+      state: latest
+    tags:
+      - install-nginx

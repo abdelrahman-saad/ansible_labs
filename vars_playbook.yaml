@@ -1,0 +1,13 @@
+- name: play_1
+  hosts: all
+  gather_facts: false
+  # vars:
+  #   package_name: nginx
+  #   package_version: latest
+  tasks:
+  - name: install nginx
+    apt:
+      name: "{{ package_name }}"
+      state: "{{ package_version }}"
+    tags:
+      - install-nginx
