@@ -1,0 +1,26 @@
+- name: task_4
+  gather_facts: true
+  hosts: all
+  vars:
+    - pkg: nginx
+  tasks:
+    - name: install nginx on ubuntu
+      apt:
+        name: "{{ pkg }}"
+        state: latest
+    
+    - name: copy files to 'distribution'
+      copy:
+        src: "{{ item }}"
+        dest: /var/www/html/
+      loop:
+        - ./index.html
+        - ./style.css
+        - ./script.js
+      notify: restart service
+
+  handlers:
+    - name: restart service
+      sysvinit:
+        name: "{{ pkg }}"
+        state: restarted

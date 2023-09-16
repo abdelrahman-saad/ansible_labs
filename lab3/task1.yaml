@@ -1,0 +1,27 @@
+- name: task_1
+  gather_facts: false
+  hosts: all
+  vars:
+    pkgs:
+      - { name: "nginx", version: "latest" }
+      - { name: "nano", version: "absent" }
+      - { name: "curl", version: "present" }
+  tasks:
+    - name: checking connection
+      ping:
+    
+    - name: installing packages
+      apt:
+        name: "{{ item.name }}"
+        state: "{{ item.version }}"
+      loop: "{{ pkgs }}"
+
+
+          # - name: installing packages
+    #   apt:
+    #     name: "{{ item }}"
+    #     state: latest
+    #   loop:
+    #     - nginx
+    #     - curl
+    #     - sudo

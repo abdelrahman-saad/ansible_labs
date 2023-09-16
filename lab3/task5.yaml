@@ -1,0 +1,35 @@
+- name: task_4
+  gather_facts: true
+  hosts: all
+  vars:
+    - pkg: nginx
+    - my_message: "if it works dont touch it"
+  tasks:
+
+    - name: install nginx on ubuntu
+      apt:
+        name: "{{ pkg }}"
+        state: latest
+      changed_when: true  
+      notify: copy files to dest
+
+    - name: update template 
+      template:
+        src: ./index.html.j2
+        dest: /var/www/html/index.html
+      notify: restart service
+
+
+  handlers:
+    - name: copy files to dest
+      copy:
+        src: "{{ item }}"
+        dest: /var/www/html/
+      loop:
+        - ./style.css
+        - ./script.js
+
+    - name: restart service
+      sysvinit:
+        name: "{{ pkg }}"
+        state: restarted

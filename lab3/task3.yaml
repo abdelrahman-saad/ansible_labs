@@ -1,0 +1,19 @@
+- name: task_3
+  gather_facts: true
+  hosts: all
+  tasks:
+    - name: install nginx on ubuntu
+      apt:
+        name: nginx
+        state: latest
+      register: res
+      changed_when: true
+
+####################################################
+############### restarting services ################
+
+    - name: restart nginx 
+      sysvinit:
+        name: nginx
+        state: restarted
+      when: res.changed == true
