@@ -1,0 +1,5 @@
+- name: Running roles
+  gather_facts: false
+  hosts: all
+  roles:
+    - web

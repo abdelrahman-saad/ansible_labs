@@ -1,0 +1,6 @@
+pkg_name: nginx
+file_names:
+  - script.js
+  - style.css
+temp_name: index.html.j2
+temp_msg: hello again, if it works dont touch it

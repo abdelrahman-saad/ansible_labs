@@ -1,0 +1,11 @@
+- name: install nginx
+  apt:
+    name: "{{ pkg_name }}"
+    state: latest
+  notify: copy required files
+
+- name: update template 
+  template:
+    src: "{{ temp_name }}"
+    dest: /var/www/html/index.html
+  notify: restarting nginx

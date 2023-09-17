@@ -1,0 +1,13 @@
+- name: copy required files
+  copy:
+    src: "{{ item }}"
+    dest: /var/www/html
+  loop: "{{ file_names }}"
+  register: result
+  notify: restarting nginx
+
+- name: restarting nginx
+  sysvinit:
+    name: "{{ pkg_name }}"
+    state: restarted
+  when: result.changed == true
